@@ -8,6 +8,27 @@ Structure
 
 - `src/avmcs/validation.py` — data validation functions
 - `src/avmcs/metrics.py` — metric calculations
+
+Experiments
+-----------
+
+This repository contains a small synthetic experiment used as a paper-style example. Running the experiments produces a CSV log and a sample plot under the `experiments/` directory. The committed outputs are:
+
+- `experiments/results.csv` — aggregated MAE and RMSE per run (columns: bias, seed, MAE, RMSE)
+- `experiments/metrics.png` — plot of MAE and RMSE vs model bias (averaged across seeds)
+
+To reproduce locally (after creating and activating your virtualenv):
+
+```bash
+# install deps (if not already)
+pip install -r requirements.txt
+
+# run experiments (writes CSV and PNG to experiments/)
+PYTHONPATH=src python scripts/run_experiments.py
+```
+
+The `metrics.png` image is committed so it will render on GitHub. For paper figures, you can generate SVG/PDF by modifying `scripts/run_experiments.py` (replace `fig.savefig(png_path)` with `fig.savefig(svg_path)` or add an extra save call).
+
 - `src/avmcs/storage.py` — saving/loading metrics
 - `src/avmcs/pipeline.py` — simple evaluation pipeline
 - `scripts/run_pipeline.py` — small runner demonstrating the flow
