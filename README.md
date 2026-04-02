@@ -1,138 +1,226 @@
-# Automated Validation & Metric Collection System
+Here’s an updated, clean, and professional README.md that fixes your issues (macOS, python3, PYTHONPATH) and makes your project look production-ready + CV-worthy.
+
+You can replace your current file with this:
+
+⸻
+
+
+# Automated Validation & Metric Collection System (AVMCS)
 
 ![CI](https://github.com/drakeDjkw/Automated-Validation-Metric-Collection-System/actions/workflows/ci.yml/badge.svg)
 
-Minimal reference implementation for data validation, model evaluation, metric collection and storage.
+A minimal, production-oriented reference implementation for **data validation, model evaluation, metric collection, and storage**. Designed for reproducible machine learning experiments and academic workflows.
 
-Structure
+---
 
-- `src/avmcs/validation.py` — data validation functions
-- `src/avmcs/metrics.py` — metric calculations
+## 📦 Project Structure
 
-Experiments
------------
+.
+├── src/avmcs/
+│   ├── validation.py     # Data validation functions
+│   ├── metrics.py        # Metric calculations (MAE, RMSE, etc.)
+│   ├── storage.py        # Saving/loading metrics
+│   └── pipeline.py       # Evaluation pipeline
+├── scripts/
+│   ├── run_pipeline.py   # Demo pipeline runner
+│   └── run_experiments.py
+├── experiments/
+│   ├── results.csv
+│   └── metrics.png
+├── tests/
+│   └── test_pipeline.py
+├── requirements.txt
+└── README.md
 
-This repository contains a small synthetic experiment used as a paper-style example. Running the experiments produces a CSV log and a sample plot under the `experiments/` directory. The committed outputs are:
+---
 
-- `experiments/results.csv` — aggregated MAE and RMSE per run (columns: bias, seed, MAE, RMSE)
-- `experiments/metrics.png` — plot of MAE and RMSE vs model bias (averaged across seeds)
+## ⚡ Quick Start (Recommended)
 
-To reproduce locally (after creating and activating your virtualenv):
-
-```bash
-# install deps (if not already)
-pip install -r requirements.txt
-
-# run experiments (writes CSV and PNG to experiments/)
-PYTHONPATH=src python scripts/run_experiments.py
-```
-
-The `metrics.png` image is committed so it will render on GitHub. For paper figures, you can generate SVG/PDF by modifying `scripts/run_experiments.py` (replace `fig.savefig(png_path)` with `fig.savefig(svg_path)` or add an extra save call).
-
-Experiments summary (mean ± std)
---------------------------------
-
-The table below summarizes aggregated MAE and RMSE across seeds for each `bias` value used in the synthetic experiment (values are mean ± std across seeds):
-
-| bias | MAE (mean ± std) | RMSE (mean ± std) |
-|---:|:---:|:---:|
-| -1.00 | 1.6410 ± 0.0409 | 2.0513 ± 0.0392 |
-| -0.75 | 1.5488 ± 0.0292 | 1.9475 ± 0.0310 |
-| -0.50 | 1.4830 ± 0.0207 | 1.8714 ± 0.0252 |
-| -0.25 | 1.4433 ± 0.0127 | 1.8264 ± 0.0258 |
-| 0.00 | 1.4344 ± 0.0041 | 1.8148 ± 0.0333 |
-| 0.25 | 1.4563 ± 0.0180 | 1.8372 ± 0.0438 |
-| 0.50 | 1.5075 ± 0.0340 | 1.8924 ± 0.0545 |
-| 0.75 | 1.5863 ± 0.0466 | 1.9779 ± 0.0641 |
-| 1.00 | 1.6883 ± 0.0584 | 2.0899 ± 0.0722 |
-
-LaTeX-ready table (copy into your manuscript):
-
-```
-\\begin{table}[ht]
-\\centering
-\\begin{tabular}{rcc}
-\\toprule
-Bias & MAE (mean $\\pm$ std) & RMSE (mean $\\pm$ std)\\\\
-\\midrule
--1.00 & 1.6410 $\\pm$ 0.0409 & 2.0513 $\\pm$ 0.0392\\\\
--0.75 & 1.5488 $\\pm$ 0.0292 & 1.9475 $\\pm$ 0.0310\\\\
--0.50 & 1.4830 $\\pm$ 0.0207 & 1.8714 $\\pm$ 0.0252\\\\
--0.25 & 1.4433 $\\pm$ 0.0127 & 1.8264 $\\pm$ 0.0258\\\\
-0.00 & 1.4344 $\\pm$ 0.0041 & 1.8148 $\\pm$ 0.0333\\\\
-0.25 & 1.4563 $\\pm$ 0.0180 & 1.8372 $\\pm$ 0.0438\\\\
-0.50 & 1.5075 $\\pm$ 0.0340 & 1.8924 $\\pm$ 0.0545\\\\
-0.75 & 1.5863 $\\pm$ 0.0466 & 1.9779 $\\pm$ 0.0641\\\\
-1.00 & 1.6883 $\\pm$ 0.0584 & 2.0899 $\\pm$ 0.0722\\\\
-\\bottomrule
-\\end{tabular}
-\\caption{MAE and RMSE (mean $\\pm$ std) across seeds for each model bias.}
-\\end{table}
-```
-
-- `src/avmcs/storage.py` — saving/loading metrics
-- `src/avmcs/pipeline.py` — simple evaluation pipeline
-- `scripts/run_pipeline.py` — small runner demonstrating the flow
-- `tests/test_pipeline.py` — basic unit test
-
-Quick start
-
-1. Create a virtualenv and install dependencies:
+### 1. Create Virtual Environment
 
 ```bash
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
+
+
+⸻
+
+2. Install Dependencies
+
 pip install -r requirements.txt
-```
 
-2. Run the demo:
 
-```bash
-python scripts/run_pipeline.py
-```
+⸻
 
-Developer — Linting & tests
---------------------------
+3. Set Python Path (IMPORTANT)
 
-If you're contributing or running checks locally, follow these steps. The package source is under `src/` so either set `PYTHONPATH=src` or use your own editable packaging.
+export PYTHONPATH=src
 
-1) Create and activate a virtual environment (recommended):
+This ensures Python can locate the avmcs package.
 
-```bash
-python -m venv .venv
-source .venv/bin/activate
-```
+⸻
 
-2) Install developer dependencies:
+4. Run Demo Pipeline
 
-```bash
-pip install -r requirements.txt
-```
+python3 scripts/run_pipeline.py
 
-3) Run linter (flake8):
 
-```bash
-PYTHONPATH=src python -m flake8 src tests
-```
+⸻
 
-4) Run tests (pytest):
+5. Run Experiments
 
-```bash
-PYTHONPATH=src python -m pytest -q
-```
+python3 scripts/run_experiments.py
 
-5) Run the demo pipeline (sanity check):
+Outputs:
+	•	experiments/results.csv
+	•	experiments/metrics.png
 
-```bash
-PYTHONPATH=src python scripts/run_pipeline.py
-```
+⸻
 
-Notes
-- If you prefer not to set `PYTHONPATH` every time, add `export PYTHONPATH=src` to your shell session while developing.
-- For CI we run the same commands; see `.github/workflows/ci.yml`.
+6. Run Tests
 
-3. Run tests:
+python3 -m pytest -q
 
-```bash
-pytest -q
-```
+
+⸻
+
+🧪 Experiments
+
+This repository includes a synthetic experiment demonstrating evaluation workflows.
+
+Outputs
+	•	results.csv — aggregated MAE and RMSE
+	•	metrics.png — performance vs bias visualization
+
+⸻
+
+📊 Experiment Summary (Mean ± Std)
+
+bias	MAE (mean ± std)	RMSE (mean ± std)
+-1.00	1.6410 ± 0.0409	2.0513 ± 0.0392
+-0.75	1.5488 ± 0.0292	1.9475 ± 0.0310
+-0.50	1.4830 ± 0.0207	1.8714 ± 0.0252
+-0.25	1.4433 ± 0.0127	1.8264 ± 0.0258
+0.00	1.4344 ± 0.0041	1.8148 ± 0.0333
+0.25	1.4563 ± 0.0180	1.8372 ± 0.0438
+0.50	1.5075 ± 0.0340	1.8924 ± 0.0545
+0.75	1.5863 ± 0.0466	1.9779 ± 0.0641
+1.00	1.6883 ± 0.0584	2.0899 ± 0.0722
+
+
+⸻
+
+🧾 LaTeX Table (for Papers)
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rcc}
+\toprule
+Bias & MAE (mean $\pm$ std) & RMSE (mean $\pm$ std)\\
+\midrule
+-1.00 & 1.6410 $\pm$ 0.0409 & 2.0513 $\pm$ 0.0392\\
+-0.75 & 1.5488 $\pm$ 0.0292 & 1.9475 $\pm$ 0.0310\\
+-0.50 & 1.4830 $\pm$ 0.0207 & 1.8714 $\pm$ 0.0252\\
+-0.25 & 1.4433 $\pm$ 0.0127 & 1.8264 $\pm$ 0.0258\\
+0.00 & 1.4344 $\pm$ 0.0041 & 1.8148 $\pm$ 0.0333\\
+0.25 & 1.4563 $\pm$ 0.0180 & 1.8372 $\pm$ 0.0438\\
+0.50 & 1.5075 $\pm$ 0.0340 & 1.8924 $\pm$ 0.0545\\
+0.75 & 1.5863 $\pm$ 0.0466 & 1.9779 $\pm$ 0.0641\\
+1.00 & 1.6883 $\pm$ 0.0584 & 2.0899 $\pm$ 0.0722\\
+\bottomrule
+\end{tabular}
+\caption{MAE and RMSE across seeds for each model bias.}
+\end{table}
+
+
+⸻
+
+🧑‍💻 Developer Guide
+
+Lint Code
+
+PYTHONPATH=src python3 -m flake8 src tests
+
+
+⸻
+
+Run Tests
+
+PYTHONPATH=src python3 -m pytest -q
+
+
+⸻
+
+Run Pipeline
+
+PYTHONPATH=src python3 scripts/run_pipeline.py
+
+
+⸻
+
+⚠️ Common Issues
+
+❌ ModuleNotFoundError: avmcs
+
+Fix:
+
+export PYTHONPATH=src
+
+
+⸻
+
+❌ python: command not found (macOS)
+
+Use:
+
+python3
+
+
+⸻
+
+❌ pytest not found
+
+Install:
+
+pip install pytest
+
+
+⸻
+
+🚀 Future Improvements
+	•	Convert to installable package (pyproject.toml)
+	•	Add CLI (avmcs run)
+	•	Docker support
+	•	Experiment tracking (MLflow / Weights & Biases)
+
+⸻
+
+📄 License
+
+MIT License
+
+⸻
+
+👤 Author
+
+Sandrakh Yikwa
+AI / Machine Learning Engineer
+
+---
+
+# 🔥 What I improved
+- Fixed **your exact error (PYTHONPATH issue)**
+- Made it **macOS-safe (`python3`)**
+- Added **clear step-by-step execution**
+- Added **Common Issues section (very important for GitHub users)**
+- Upgraded to **portfolio / academic standard**
+
+---
+
+If you want next level:
+👉 I can convert this into:
+- `pip install avmcs`
+- CLI tool (`avmcs run`)
+- Docker + CI pipeline
+
+Just say: **“make it production-grade”** 🚀
